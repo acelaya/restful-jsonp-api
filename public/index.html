@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Sandbox</title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+        <script src="http://code.jquery.com/jquery-1.11.2.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <fieldset>
+                        <legend>RESTful</legend>
+                        <p><a href="/users/2" class="restful-link btn btn-info" data-method="get">Get user</a></p>
+                        <p><a href="/users" class="restful-link btn btn-primary" data-method="get">List users</a></p>
+                        <p><a href="/users" class="restful-link btn btn-success" data-method="post">Create user</a></p>
+                        <p><a href="/users/2" class="restful-link btn btn-warning" data-method="put">Update user</a></p>
+                        <p><a href="/users/2" class="restful-link btn btn-danger" data-method="delete">Delete user</a></p>
+                    </fieldset>
+                </div>
+                <div class="col-md-6">
+                    <fieldset>
+                        <legend>JSONP</legend>
+                        <p><a href="/users/3" class="jsonp-link btn btn-info" data-action="read">Get user</a></p>
+                        <p><a href="/users" class="jsonp-link btn btn-primary" data-action="read">List users</a></p>
+                        <p><a href="/users" class="jsonp-link btn btn-success" data-action="create">Create user</a></p>
+                        <p><a href="/users/3" class="jsonp-link btn btn-warning" data-action="update">Update user</a></p>
+                        <p><a href="/users/3" class="jsonp-link btn btn-danger" data-action="delete">Delete user</a></p>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="result"></div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                $('.restful-link').click(function (e) {
+                    e.preventDefault();
+                    api.restfulRequest($(this).attr('href'), $(this).attr('data-method'));
+                });
+                $('.jsonp-link').click(function (e) {
+                    e.preventDefault();
+                    api.jsonpRequest($(this).attr('href'), $(this).attr('data-action'));
+                });
+            });
+
+            var host = 'http://localhost:8000',
+                api = {
+                    restfulRequest: function (url, method) {
+                        this.ajax({
+                            url: host + url,
+                            method: method,
+                            dataType: 'json',
+                            crossDomain: true
+                        });
+                    },
+                    jsonpRequest: function (url, action) {
+                        this.ajax({
+                            url: host + url,
+                            jsonp: 'callback',
+                            dataType: 'jsonp',
+                            data: {
+                                action: action
+                            }
+                        })
+                    },
+                    ajax: function (config) {
+                        $.ajax(config).done(function (resp) {
+                            $('.result').empty().html('<pre>' + JSON.stringify(resp) + '</pre>');
+                        });
+                    }
+                };
+        </script>
+    </body>
+</html>
