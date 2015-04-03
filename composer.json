@@ -1,0 +1,15 @@
+{
+    "name": "acelaya/jsonp-extended-api",
+    "description": "Both RESTful and JSONP API",
+    "require": {
+        "slim/slim": "~2.6",
+        "akrabat/rka-slim-controller": "~2.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alejandro Celaya",
+            "email": "alejandro@alejandrocelaya.com"
+        }
+    ]
+}
