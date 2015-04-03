@@ -34,6 +34,12 @@ abstract class AbstractRestfulController extends AbstractController
             case 'delete':
                 $resp = $this->delete($id);
                 break;
+            case 'options':
+                $resp = $this->app->response();
+                $resp->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+                $resp->header('Access-Control-Max-Age', 1000);
+                $resp->header('Access-Control-Allow-Headers', 'origin, x-csrftoken, content-type, accept');
+                break;
             default:
                 $this->app->response()->setStatus(405);
         }
@@ -102,14 +108,6 @@ abstract class AbstractRestfulController extends AbstractController
     // So on...
 
     public function head($id = null)
-    {
-        $this->app->response()->setStatus(405);
-        return [
-            'error' => 'Method Not Allowed'
-        ];
-    }
-
-    public function options()
     {
         $this->app->response()->setStatus(405);
         return [

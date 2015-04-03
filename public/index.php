@@ -13,8 +13,7 @@ $app->map('/', function () {
     echo 'Home';
 })->via('GET');
 
-$app->map('/users(/:id)', UsersController::class . ':dispatch')
-    ->via('GET', 'POST', 'PUT', 'DELETE')
+$app->any('/users(/:id)', UsersController::class . ':dispatch')
     ->name('users-rest');
 
 $app->run();
