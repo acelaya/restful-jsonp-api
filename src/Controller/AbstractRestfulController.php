@@ -107,6 +107,14 @@ abstract class AbstractRestfulController extends AbstractController
 
     // So on...
 
+    public function deleteList(array $data)
+    {
+        $this->app->response()->setStatus(405);
+        return [
+            'error' => 'Method Not Allowed'
+        ];
+    }
+
     public function head($id = null)
     {
         $this->app->response()->setStatus(405);
