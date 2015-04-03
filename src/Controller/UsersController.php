@@ -7,7 +7,7 @@ class UsersController extends AbstractRestfulController
     {
         return [
             'user' => [
-                'id' => 1,
+                'id' => (int) $id,
                 'username' => 'jochem',
                 'name' => 'Jochem Hilaire'
             ],

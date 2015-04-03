@@ -10,7 +10,7 @@ abstract class AbstractRestfulController extends AbstractController
      */
     protected $queryParams = [];
 
-    final public function dispatchAction()
+    final public function dispatch()
     {
         $resp = [];
         $this->queryParams = $this->app->request()->get();

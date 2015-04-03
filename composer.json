@@ -2,6 +2,7 @@
     "name": "acelaya/jsonp-extended-api",
     "description": "Both RESTful and JSONP API",
     "require": {
+        "php": ">=5.5",
         "slim/slim": "~2.6",
         "akrabat/rka-slim-controller": "~2.0"
     },
