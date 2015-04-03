@@ -158,10 +158,10 @@ abstract class AbstractRestfulController extends AbstractController
                 $resp = isset($id) ? $this->get($id) : $this->getList();
                 break;
             case 'create':
-                $resp = $this->create($this->parseRequestBody());
+                $resp = $this->create($this->parseDataArgument());
                 break;
             case 'update':
-                $resp = $this->update($id, $this->parseRequestBody());
+                $resp = $this->update($id, $this->parseDataArgument());
                 break;
             case 'delete':
                 $resp = $this->delete($id);
@@ -171,5 +171,24 @@ abstract class AbstractRestfulController extends AbstractController
         }
 
         return $resp;
+    }
+
+    protected function parseDataArgument()
+    {
+        if (! isset($this->queryParams['data'])) {
+            return [];
+        }
+
+        // Try to decode from JSON
+        $content = $this->queryParams['data'];
+        $parsedArgs = json_decode($content, true);
+        if (is_array($parsedArgs)) {
+            return $parsedArgs;
+        }
+
+        // Try to parse from standard params string
+        $parsedArgs = [];
+        parse_str($content, $parsedArgs);
+        return $parsedArgs;
     }
 }
