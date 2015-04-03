@@ -45,6 +45,7 @@ abstract class AbstractRestfulController extends AbstractController
             $this->app->response()->header('Content-type', 'application/javascript');
         } else {
             $this->app->response()->header('Content-type', 'application/json');
+            $this->app->response()->header('Access-Control-Allow-Origin', '*');
         }
         $this->app->response()->write($responseContent);
 
